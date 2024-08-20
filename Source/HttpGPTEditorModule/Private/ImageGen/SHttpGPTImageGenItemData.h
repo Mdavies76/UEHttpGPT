@@ -10,22 +10,21 @@
 class SHttpGPTImageGenItemData final : public SCompoundWidget
 {
 public:
-	SLATE_BEGIN_ARGS(SHttpGPTImageGenItemData) : _Texture()
-		{
-		}
+    SLATE_BEGIN_ARGS(SHttpGPTImageGenItemData) : _Texture()
+        {
+        }
+        SLATE_ARGUMENT(class UTexture2D*, Texture)
+    SLATE_END_ARGS()
 
-		SLATE_ARGUMENT(class UTexture2D*, Texture)
-	SLATE_END_ARGS()
+    void Construct(const FArguments& InArgs);
 
-	void Construct(const FArguments& InArgs);
-
-	FReply HandleSaveButton();
-	bool IsSaveEnabled() const;
+    FReply HandleSaveButton();
+    bool IsSaveEnabled() const;
 
 private:
-	TSharedRef<SWidget> ConstructContent();
+    TSharedRef<SWidget> ConstructContent();
 
-	TWeakObjectPtr<class UTexture2D> Texture;
+    TWeakObjectPtr<class UTexture2D> Texture;
 };
 
-using SHttpGPTImageGenItemDataPtr = TSharedPtr<SHttpGPTImageGenItemData>;
+typedef TSharedPtr<SHttpGPTImageGenItemData> SHttpGPTImageGenItemDataPtr;

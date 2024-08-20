@@ -6,25 +6,33 @@ using UnrealBuildTool;
 
 public class HttpGPTCommonModule : ModuleRules
 {
-	public HttpGPTCommonModule(ReadOnlyTargetRules Target) : base(Target)
-	{
-		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
-		CppStandard = CppStandardVersion.Cpp17;
+    public HttpGPTCommonModule(ReadOnlyTargetRules Target) : base(Target)
+    {
+        PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
+        CppStandard = CppStandardVersion.Cpp17;
 
-		PublicDependencyModuleNames.AddRange(new[]
-		{
-			"Core",
-			"HTTP",
-			"Json"
-		});
+        if (Target.Platform == UnrealTargetPlatform.HoloLens)
+        {
+            PrecompileForTargets = PrecompileTargetsType.Any;
+        }
 
-		PrivateDependencyModuleNames.AddRange(new[]
-		{
-			"Engine",
-			"CoreUObject",
-			"DeveloperSettings"
-		});
+        PublicDependencyModuleNames.AddRange(new[]
+        {
+            "Core",
+            "HTTP",
+            "Json"
+        });
 
-		if (Target.bBuildEditor) PrivateDependencyModuleNames.Add("UnrealEd");
-	}
+        PrivateDependencyModuleNames.AddRange(new[]
+        {
+            "Engine",
+            "CoreUObject",
+            "DeveloperSettings"
+        });
+
+        if (Target.bBuildEditor)
+        {
+            PrivateDependencyModuleNames.Add("UnrealEd");
+        }
+    }
 }

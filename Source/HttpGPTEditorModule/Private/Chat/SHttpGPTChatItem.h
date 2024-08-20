@@ -13,30 +13,29 @@ static const FName NewSessionName = TEXT("New Session");
 class SHttpGPTChatItem final : public SCompoundWidget
 {
 public:
-	SLATE_BEGIN_ARGS(SHttpGPTChatItem) : _MessageRole(), _InputText(), _ScrollBox()
-		{
-		}
+    SLATE_BEGIN_ARGS(SHttpGPTChatItem) : _MessageRole(), _InputText(), _ScrollBox()
+        {
+        }
+        SLATE_ARGUMENT(EHttpGPTChatRole, MessageRole)
+        SLATE_ARGUMENT(FString, InputText)
+        SLATE_ARGUMENT(TSharedPtr<class SScrollBox>, ScrollBox)
+    SLATE_END_ARGS()
 
-		SLATE_ARGUMENT(EHttpGPTChatRole, MessageRole)
-		SLATE_ARGUMENT(FString, InputText)
-		SLATE_ARGUMENT(TSharedPtr<class SScrollBox>, ScrollBox)
-	SLATE_END_ARGS()
+    void Construct(const FArguments& InArgs);
 
-	void Construct(const FArguments& InArgs);
+    FString GetRoleText() const;
+    FString GetMessageText() const;
 
-	FString GetRoleText() const;
-	FString GetMessageText() const;
-
-	TWeakObjectPtr<class UHttpGPTMessagingHandler> MessagingHandlerObject;
+    TWeakObjectPtr<class UHttpGPTMessagingHandler> MessagingHandlerObject;
 
 private:
-	TSharedRef<SWidget> ConstructContent();
+    TSharedRef<SWidget> ConstructContent();
 
-	EHttpGPTChatRole MessageRole;
-	FString InputText;
+    EHttpGPTChatRole MessageRole;
+    FString InputText;
 
-	TSharedPtr<class STextBlock> Role;
-	TSharedPtr<class SMultiLineEditableText> Message;
+    TSharedPtr<class STextBlock> Role;
+    TSharedPtr<class SMultiLineEditableText> Message;
 };
 
-using SHttpGPTChatItemPtr = TSharedPtr<SHttpGPTChatItem>;
+typedef TSharedPtr<SHttpGPTChatItem> SHttpGPTChatItemPtr;
